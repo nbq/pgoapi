@@ -38,6 +38,7 @@ from pgoapi.exceptions import AuthException, AuthTimeoutException, InvalidCreden
 
 from requests.exceptions import RequestException, Timeout, ProxyError, SSLError, ConnectionError
 
+
 class AuthPtc(Auth):
 
     def __init__(self, username=None, password=None, user_agent=None, timeout=None, locale=None):
@@ -69,8 +70,10 @@ class AuthPtc(Auth):
     def user_login(self, username=None, password=None):
         self._username = username or self._username
         self._password = password or self._password
-        if not isinstance(self._username, string_types) or not isinstance(self._password, string_types):
-            raise InvalidCredentialsException("Username/password not correctly specified")
+        if not isinstance(self._username, string_types) or not isinstance(
+                self._password, string_types):
+            raise InvalidCredentialsException(
+                "Username/password not correctly specified")
 
         self.log.info('PTC User Login for: {}'.format(self._username))
         self._session.cookies.clear()

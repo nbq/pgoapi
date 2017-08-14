@@ -29,8 +29,8 @@ import logging
 
 from pgoapi.utilities import get_time, get_format_time_diff
 
-class Auth:
 
+class Auth:
     def __init__(self):
         self.log = logging.getLogger(__name__)
 
@@ -75,14 +75,17 @@ class Auth:
     def check_ticket(self):
         if not self.has_ticket():
             return False
-        now_ms = get_time(ms = True)
+        now_ms = get_time(ms=True)
         if now_ms < (self._ticket_expire - 10000):
             h, m, s = get_format_time_diff(now_ms, self._ticket_expire, True)
-            self.log.debug('Session Ticket still valid for further %02d:%02d:%02d hours (%s < %s)', h, m, s, now_ms, self._ticket_expire)
+            self.log.debug(
+                'Session Ticket still valid for further %02d:%02d:%02d hours (%s < %s)', h, m, s, now_ms, self._ticket_expire)
             return True
 
-        self.log.debug('Removed expired Session Ticket (%s < %s)', now_ms, self._ticket_expire)
-        self._ticket_expire, self._ticket_start, self._ticket_end = (0, None, None)
+        self.log.debug('Removed expired Session Ticket (%s < %s)',
+                       now_ms, self._ticket_expire)
+        self._ticket_expire, self._ticket_start, self._ticket_end = (
+            0, None, None)
         return False
 
     def get_ticket(self):
@@ -96,7 +99,7 @@ class Auth:
     def set_refresh_token(self, username, password):
         raise NotImplementedError()
 
-    def get_access_token(self, force_refresh = False):
+    def get_access_token(self, force_refresh=False):
         raise NotImplementedError()
 
     def check_access_token(self):
@@ -106,11 +109,15 @@ class Auth:
 
         now_s = get_time()
         if self._access_token_expiry == 0:
-            self.log.debug('No Access Token Expiry found - assuming it is still valid!')
+            self.log.debug(
+                'No Access Token Expiry found - assuming it is still valid!')
             return True
         elif self._access_token_expiry > now_s:
-            h, m, s = get_format_time_diff(now_s, self._access_token_expiry, False)
-            self.log.debug('Access Token still valid for further %02d:%02d:%02d hours (%s < %s)', h, m, s, now_s, self._access_token_expiry)
+            h, m, s = get_format_time_diff(
+                now_s, self._access_token_expiry, False)
+            self.log.debug(
+                'Access Token still valid for further %02d:%02d:%02d hours (%s < %s)',
+                h, m, s, now_s, self._access_token_expiry)
             return True
 
         self.log.info('Access Token expired!')
