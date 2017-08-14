@@ -64,7 +64,6 @@ class RpcApi:
         # mystical unknown6 - resolved by PokemonGoDev
         self._hash_engine = None
         self.request_proto = None
-        self.request_id = request_id
 
         # data fields for SignalAgglom
         self.token2 = random.randint(1, 59)

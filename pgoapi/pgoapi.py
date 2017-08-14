@@ -91,10 +91,6 @@ class PGoApi:
         self.device_info = device_info
         self.state = RpcState()
 
-        # low and high 32 bits of request id
-        self.RPC_ID_LOW = 2
-        self.RPC_ID_HIGH = 1
-
     def set_logger(self, logger=None):
         self.log = logger or logging.getLogger(__name__)
 
