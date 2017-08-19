@@ -69,7 +69,7 @@ class PGoApi:
             self.set_authentication(provider, oauth2_refresh_token, username,
                                     password, proxy_config)
 
-        self.set_api_endpoint("pgorelease.nianticlabs.com/plfe")
+        self.set_api_endpoint('pgorelease.nianticlabs.com/plfe')
 
         self._position_lat = position_lat
         self._position_lng = position_lng
@@ -78,7 +78,12 @@ class PGoApi:
         self._hash_server_token = None
 
         self._session = requests.session()
-        self._session.headers.update({'User-Agent': 'Niantic App'})
+        self._session.headers.update({
+            'User-Agent': 'Niantic App',
+            'Accept': '*/*',
+            'Content-Type': 'application/binary',
+            'Accept-Encoding': 'identity, gzip'
+        })
         self._session.verify = True
 
         if proxy_config is not None:
