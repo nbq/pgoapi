@@ -80,9 +80,8 @@ class PGoApi:
         self._session = requests.session()
         self._session.headers.update({
             'User-Agent': 'Niantic App',
-            'Accept': '*/*',
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept-Language': 'en-us'
+            'Content-Type': 'application/binary',
+            'Accept-Encoding': 'identity, gzip'
         })
         self._session.verify = True
 
