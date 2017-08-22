@@ -44,6 +44,7 @@ class AuthPtc(Auth):
     PTC_LOGIN_URL1_GET = 'https://sso.pokemon.com/sso/oauth2.0/authorize'
     PTC_LOGIN_URL2_POST = 'https://sso.pokemon.com/sso/login'
     PTC_LOGIN_OAUTH = 'https://sso.pokemon.com/sso/oauth2.0/accessToken'
+    PTC_LOGIN_PROFILE = 'https://sso.pokemon.com/sso/oauth2.0/profile'
     PTC_LOGIN_CLIENT_SECRET = 'w8ScCUXJQc6kXKw8FiOhd8Fixzht18Dq3PEVkUCP5ZPxtgyWsbTvWHFLm2wNY0JR'
 
     def __init__(self,
@@ -177,9 +178,16 @@ class AuthPtc(Auth):
                 'code': self._refresh_token,
             }
 
+            post_headers = {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+
             try:
                 r = self._session.post(
-                    self.PTC_LOGIN_OAUTH, data=data, timeout=self.timeout)
+                    self.PTC_LOGIN_OAUTH,
+                    data=data,
+                    headers=post_headers,
+                    timeout=self.timeout)
             except Timeout:
                 raise AuthTimeoutException('Auth POST timed out.')
             except RequestException as e:
@@ -191,10 +199,10 @@ class AuthPtc(Auth):
             if access_token is not None:
                 self._access_token = access_token[0]
 
-                # set expiration to an hour less than value received because Pokemon OAuth
+                # Set expiration to an hour less than value received because Pokemon OAuth
                 # login servers return an access token with an explicit expiry time of
                 # three hours, however, the token stops being valid after two hours.
-                # See issue #86
+                # See issue #86.
                 expires = int(token_data.get('expires', [0])[0]) - 3600
                 if expires > 0:
                     self._access_token_expiry = expires + get_time()
@@ -206,6 +214,28 @@ class AuthPtc(Auth):
                 self.log.info('PTC Access Token successfully retrieved.')
                 self.log.debug(
                     'PTC Access Token: {}'.format(self._access_token))
+
+                # Last request is a profile request.
+                data = {
+                    'access_token': self._access_token,
+                    'client_id': 'mobile-app_pokemon-go',
+                    'locale': self.locale
+                }
+
+                post_headers = {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+
+                try:
+                    r = self._session.post(
+                        self.PTC_LOGIN_PROFILE,
+                        data=data,
+                        headers=post_headers,
+                        timeout=self.timeout)
+                except Timeout:
+                    raise AuthTimeoutException('Auth profile POST timed out.')
+                except RequestException as e:
+                    raise AuthException('Caught RequestException: {}'.format(e))
             else:
                 self._access_token = None
                 self._login = False
