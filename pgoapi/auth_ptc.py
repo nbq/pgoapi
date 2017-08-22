@@ -96,13 +96,17 @@ class AuthPtc(Auth):
         }
 
         try:
-            r = self._session.get(self.PTC_LOGIN_URL1_GET, params=get_params, timeout=self.timeout)
+            r = self._session.get(
+                self.PTC_LOGIN_URL1_GET,
+                params=get_params,
+                timeout=self.timeout)
         except Timeout:
             raise AuthTimeoutException('Auth GET timed out.')
         except RequestException as e:
             raise AuthException('Caught RequestException: {}'.format(e))
 
         try:
+            # Consumes response, so connection is released to pool.
             data = r.json()
             data.update({
                 '_eventId': 'submit',
@@ -119,9 +123,7 @@ class AuthPtc(Auth):
             'service': 'http://sso.pokemon.com/sso/oauth2.0/callbackAuthorize'
         }
 
-        post_headers = {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        post_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
         try:
             r = self._session.post(
@@ -141,6 +143,9 @@ class AuthPtc(Auth):
             self._refresh_token = qs.get('ticket')[0]
         except Exception as e:
             raise AuthException('Could not retrieve token! {}'.format(e))
+
+        # We don't consume the response, so explicitly release connection.
+        r.close()
 
         self._access_token = self._session.cookies.get('CASTGC')
         if self._access_token:
@@ -178,9 +183,7 @@ class AuthPtc(Auth):
                 'code': self._refresh_token,
             }
 
-            post_headers = {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
+            post_headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
             try:
                 r = self._session.post(
@@ -193,6 +196,7 @@ class AuthPtc(Auth):
             except RequestException as e:
                 raise AuthException('Caught RequestException: {}'.format(e))
 
+            # Consumes response, so connection is released to pool.
             token_data = parse_qs(r.text)
 
             access_token = token_data.get('access_token')
@@ -232,6 +236,9 @@ class AuthPtc(Auth):
                         data=data,
                         headers=post_headers,
                         timeout=self.timeout)
+
+                    # We don't consume the response, so explicitly release connection.
+                    r.close()
                 except Timeout:
                     raise AuthTimeoutException('Auth profile POST timed out.')
                 except RequestException as e:
