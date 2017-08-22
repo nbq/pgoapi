@@ -178,6 +178,7 @@ class AuthPtc(Auth):
             return self._access_token
 
         self._access_token = None
+        self._ticket_expire = 0
         self._login = False
         self.user_login()
         return self._access_token
