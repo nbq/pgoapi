@@ -108,8 +108,7 @@ class PGoApi:
                            timeout=None,
                            locale=None):
         if provider == 'ptc':
-            self._auth_provider = AuthPtc(
-                user_agent=user_agent, timeout=timeout, locale=locale)
+            self._auth_provider = AuthPtc(user_agent=user_agent, timeout=timeout, locale=locale)
         elif provider == 'google':
             self._auth_provider = AuthGoogle()
         elif provider is None:
