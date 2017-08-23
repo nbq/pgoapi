@@ -58,10 +58,10 @@ class AuthPtc(Auth):
 
         self._session = requests.session()
         self._session.headers = {
-            'User-Agent': self.user_agent,
             'Host': 'sso.pokemon.com',
-            'Connection': 'keep-alive',
             'Accept': '*/*',
+            'Connection': 'keep-alive',
+            'User-Agent': self.user_agent,
             'Accept-Language': self.locale.lower().replace('_', '-'),
             'Accept-Encoding': 'gzip, deflate',
             'X-Unity-Version': '5.5.1f1'
@@ -101,12 +101,12 @@ class AuthPtc(Auth):
             data.update({
                 '_eventId': 'submit',
                 'username': self._username,
-                'password': self._password,
-                'locale': self.locale
+                'password': self._password
             })
 
             logout_params = {
-                'service': 'https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize'
+                'service': 'https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize',
+                'locale': self.locale
             }
             r = self._session.get(
                 'https://sso.pokemon.com/sso/logout',
@@ -126,7 +126,8 @@ class AuthPtc(Auth):
             r.close()
 
             login_params_post = {
-                'service': 'http://sso.pokemon.com/sso/oauth2.0/callbackAuthorize'
+                'service': 'http://sso.pokemon.com/sso/oauth2.0/callbackAuthorize',
+                'locale': self.locale
             }
             login_headers_post = {
                 'Content-Type': 'application/x-www-form-urlencoded'
