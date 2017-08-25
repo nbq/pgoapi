@@ -78,11 +78,15 @@ class PGoApi:
         self._hash_server_token = None
 
         self._session = requests.session()
-        self._session.headers.update({
+
+        # requests' Session calls .default_headers() in init, which
+        # makes it set a bunch of default headers, including
+        # 'Connection': 'keep-alive', so we overwrite all of them.
+        self._session.headers = {
             'User-Agent': 'Niantic App',
             'Content-Type': 'application/binary',
             'Accept-Encoding': 'identity, gzip'
-        })
+        }
         self._session.verify = True
 
         if proxy_config is not None:
