@@ -21,6 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_pb=_b('\nFpogoprotos/networking/responses/platform_client_actions_response.proto\x12\x1fpogoprotos.networking.responses\"\xad\x01\n RegisterPushNotificationResponse\x12X\n\x06result\x18\x01 \x01(\x0e\x32H.pogoprotos.networking.responses.RegisterPushNotificationResponse.Result\"/\n\x06Result\x12\t\n\x05UNSET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\r\n\tNO_CHANGE\x10\x02\"\xef\x01\n UpdateNotificationStatusResponse\x12\x18\n\x10notification_ids\x18\x01 \x03(\t\x12\x1b\n\x13\x63reate_timestamp_ms\x18\x02 \x03(\x03\x12\x62\n\x05state\x18\x03 \x01(\x0e\x32S.pogoprotos.networking.responses.UpdateNotificationStatusResponse.NotificationState\"0\n\x11NotificationState\x12\x0f\n\x0bUNSET_STATE\x10\x00\x12\n\n\x06VIEWED\x10\x01\"(\n&OptOutPushNotificationCategoryResponseb\x06proto3')
 )
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -181,7 +182,6 @@ _UPDATENOTIFICATIONSTATUSRESPONSE_NOTIFICATIONSTATE.containing_type = _UPDATENOT
 DESCRIPTOR.message_types_by_name['RegisterPushNotificationResponse'] = _REGISTERPUSHNOTIFICATIONRESPONSE
 DESCRIPTOR.message_types_by_name['UpdateNotificationStatusResponse'] = _UPDATENOTIFICATIONSTATUSRESPONSE
 DESCRIPTOR.message_types_by_name['OptOutPushNotificationCategoryResponse'] = _OPTOUTPUSHNOTIFICATIONCATEGORYRESPONSE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 RegisterPushNotificationResponse = _reflection.GeneratedProtocolMessageType('RegisterPushNotificationResponse', (_message.Message,), dict(
   DESCRIPTOR = _REGISTERPUSHNOTIFICATIONRESPONSE,

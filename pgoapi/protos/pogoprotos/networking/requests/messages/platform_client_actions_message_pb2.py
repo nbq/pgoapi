@@ -21,6 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_pb=_b('\nMpogoprotos/networking/requests/messages/platform_client_actions_message.proto\x12\'pogoprotos.networking.requests.messages\"\xed\x02\n\x1fRegisterPushNotificationMessage\x12\x64\n\tapn_token\x18\x01 \x01(\x0b\x32Q.pogoprotos.networking.requests.messages.RegisterPushNotificationMessage.ApnToken\x12\x64\n\tgcm_token\x18\x02 \x01(\x0b\x32Q.pogoprotos.networking.requests.messages.RegisterPushNotificationMessage.GcmToken\x1aY\n\x08\x41pnToken\x12\x17\n\x0fregistration_id\x18\x01 \x01(\t\x12\x19\n\x11\x62undle_identifier\x18\x02 \x01(\t\x12\x19\n\x11payload_byte_size\x18\x03 \x01(\x05\x1a#\n\x08GcmToken\x12\x17\n\x0fregistration_id\x18\x01 \x01(\t\"\xf5\x01\n\x1fUpdateNotificationStatusMessage\x12\x18\n\x10notification_ids\x18\x01 \x03(\t\x12\x1b\n\x13\x63reate_timestamp_ms\x18\x02 \x03(\x03\x12i\n\x05state\x18\x03 \x01(\x0e\x32Z.pogoprotos.networking.requests.messages.UpdateNotificationStatusMessage.NotificationState\"0\n\x11NotificationState\x12\x0f\n\x0bUNSET_STATE\x10\x00\x12\n\n\x06VIEWED\x10\x01\";\n%OptOutPushNotificationCategoryMessage\x12\x12\n\ncategories\x18\x01 \x03(\tb\x06proto3')
 )
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -244,7 +245,6 @@ _UPDATENOTIFICATIONSTATUSMESSAGE_NOTIFICATIONSTATE.containing_type = _UPDATENOTI
 DESCRIPTOR.message_types_by_name['RegisterPushNotificationMessage'] = _REGISTERPUSHNOTIFICATIONMESSAGE
 DESCRIPTOR.message_types_by_name['UpdateNotificationStatusMessage'] = _UPDATENOTIFICATIONSTATUSMESSAGE
 DESCRIPTOR.message_types_by_name['OptOutPushNotificationCategoryMessage'] = _OPTOUTPUSHNOTIFICATIONCATEGORYMESSAGE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 RegisterPushNotificationMessage = _reflection.GeneratedProtocolMessageType('RegisterPushNotificationMessage', (_message.Message,), dict(
 

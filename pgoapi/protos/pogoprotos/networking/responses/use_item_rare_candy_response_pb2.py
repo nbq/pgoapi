@@ -23,6 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   serialized_pb=_b('\nBpogoprotos/networking/responses/use_item_rare_candy_response.proto\x12\x1fpogoprotos.networking.responses\x1a!pogoprotos/enums/pokemon_id.proto\"\xb3\x02\n\x18UseItemRareCandyResponse\x12P\n\x06result\x18\x01 \x01(\x0e\x32@.pogoprotos.networking.responses.UseItemRareCandyResponse.Result\x12/\n\npokemon_id\x18\x02 \x01(\x0e\x32\x1b.pogoprotos.enums.PokemonId\x12\x1b\n\x13updated_candy_count\x18\x03 \x01(\x05\"w\n\x06Result\x12\t\n\x05UNSET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x16\n\x12INVALID_POKEMON_ID\x10\x02\x12\r\n\tNO_PLAYER\x10\x03\x12\x13\n\x0fWRONG_ITEM_TYPE\x10\x04\x12\x19\n\x15ITEM_NOT_IN_INVENTORY\x10\x05\x62\x06proto3')
   ,
   dependencies=[pogoprotos_dot_enums_dot_pokemon__id__pb2.DESCRIPTOR,])
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -114,7 +115,6 @@ _USEITEMRARECANDYRESPONSE.fields_by_name['result'].enum_type = _USEITEMRARECANDY
 _USEITEMRARECANDYRESPONSE.fields_by_name['pokemon_id'].enum_type = pogoprotos_dot_enums_dot_pokemon__id__pb2._POKEMONID
 _USEITEMRARECANDYRESPONSE_RESULT.containing_type = _USEITEMRARECANDYRESPONSE
 DESCRIPTOR.message_types_by_name['UseItemRareCandyResponse'] = _USEITEMRARECANDYRESPONSE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 UseItemRareCandyResponse = _reflection.GeneratedProtocolMessageType('UseItemRareCandyResponse', (_message.Message,), dict(
   DESCRIPTOR = _USEITEMRARECANDYRESPONSE,
